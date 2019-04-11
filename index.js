@@ -9,6 +9,8 @@ const {
   poweredByHandler
 } = require('./handlers.js')
 
+const {generateMove} = require("./services/move");
+
 
 // For deployment to Heroku, the port needs to be set using ENV, so
 // we check for the port number in process.env
@@ -24,11 +26,17 @@ app.use(poweredByHandler)
 
 // Handle POST request to '/start'
 app.post('/start', (request, response) => {
+
+  console.log("A new game was provided!");
+
   // NOTE: Do something here to start the game
 
   // Response data
   const data = {
-    color: '#DFFF00',
+    // color: '#eeeeee', // <-- Invisible mode :)
+    color: "#F084FF",
+    headType: "shades",
+    tailType: "bolt"
   }
 
   return response.json(data)
@@ -38,9 +46,11 @@ app.post('/start', (request, response) => {
 app.post('/move', (request, response) => {
   // NOTE: Do something here to generate your move
 
+  // Logic - Where to move next
+
   // Response data
   const data = {
-    move: 'up', // one of: ['up','down','left','right']
+    move: generateMove(request), // one of: ['up','down','left','right']
   }
 
   return response.json(data)
