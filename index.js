@@ -49,11 +49,15 @@ app.post('/move', (request, response) => {
   // Logic - Where to move next
 
   // Response data
-  const data = {
-    move: generateMove(request), // one of: ['up','down','left','right']
+  try{
+    const data = {
+      move: generateMove(request), // one of: ['up','down','left','right']
+    }
+  
+    return response.json(data)
+  } catch (e){
+    console.log(e);
   }
-
-  return response.json(data)
 })
 
 app.post('/end', (request, response) => {
